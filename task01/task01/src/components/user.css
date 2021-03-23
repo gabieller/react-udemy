@@ -1,0 +1,10 @@
+.box-user {
+  border: 1px solid #000;
+  background-color: bisque;
+  width: 50%;
+  margin: 20px;
+}
+
+.input-box {
+  margin-top: 24px;
+}
