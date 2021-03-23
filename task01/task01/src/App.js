@@ -1,4 +1,5 @@
 import UserOutput from "./components/UserOutput";
+import UserInput from "./components/UserInput";
 import "./App.css";
 import { Component } from "react";
 
@@ -11,12 +12,14 @@ class App extends Component {
     ],
   };
 
+  //TODO: how to handle all entries, not one by one
+  //setState merges whatever passed with the existing state and update the existing state
   userChangeHandler = (event) => {
     this.setState({
       username: [
         { user: event.target.value },
-        { user: event.target.value },
-        { user: event.target.value },
+        { user: "jhonata11" },
+        { user: "deaeller" },
       ],
     });
   };
@@ -24,9 +27,20 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <UserOutput user={this.state.username[0].user} changed= {this.handleS} />
-        <UserOutput user={this.state.username[1].user} />
-        <UserOutput user={this.state.username[2].user} />
+        {/* call the method here too */}
+        <UserInput 
+        changed={this.userChangeHandler}
+        value={this.state.username[0].user}
+         /> 
+        {/* call the method to change the user dynamic from input  */}
+        {/* userName is the props  */}
+        {/* user is the state property */}
+        <UserOutput
+          userName={this.state.username[0].user} 
+          changed={this.userChangeHandler}
+        />
+        <UserOutput userName={this.state.username[1].user} />
+        <UserOutput userName={this.state.username[2].user} />
       </div>
     );
   }
@@ -39,3 +53,6 @@ export default App;
 // Ensure that the new input entered by the user overwrites the old username passed to UserOutput
 // Add two-way-binding to your input (in UserInput) to also display the starting username
 // Add styling of your choice to your components/ elements in the components - both with inline styles and stylesheets
+
+//Onchange
+//changes on inpuy
