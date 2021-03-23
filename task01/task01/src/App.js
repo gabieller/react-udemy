@@ -1,30 +1,32 @@
 import UserOutput from "./components/UserOutput";
 import "./App.css";
 import { Component } from "react";
-import UserInput from "./components/UserInput";
 
 class App extends Component {
-  // state = {
-  //   username: [
-  //     { user: "gabieller" },
-  //     { user: "jhonata11" },
-  //     { user: "deaeller" },
-  //   ],
-  // };
+  state = {
+    username: [
+      { user: "gabieller" },
+      { user: "jhonata11" },
+      { user: "deaeller" },
+    ],
+  };
 
-  // handleState = (event) => {
-  //   this.setState({
-
-  //   })
-  // }
+  userChangeHandler = (event) => {
+    this.setState({
+      username: [
+        { user: event.target.value },
+        { user: event.target.value },
+        { user: event.target.value },
+      ],
+    });
+  };
 
   render() {
     return (
       <div className="App">
-        <UserInput />
-        <UserOutput  />
-        <UserOutput  />
-        <UserOutput  />
+        <UserOutput user={this.state.username[0].user} changed= {this.handleS} />
+        <UserOutput user={this.state.username[1].user} />
+        <UserOutput user={this.state.username[2].user} />
       </div>
     );
   }
@@ -32,8 +34,6 @@ class App extends Component {
 
 export default App;
 
-// Pass a username (of your choice) to UserOutput via props and display it there
-// Add state to the App component (=> the username) and pass the username to the UserOutput component
 // Add a method to manipulate the state (=> an event-handler method)
 // Pass the event-handler method reference to the UserInput component and bind it to the input-change event
 // Ensure that the new input entered by the user overwrites the old username passed to UserOutput
