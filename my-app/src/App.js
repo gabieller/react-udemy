@@ -1,6 +1,7 @@
 import { Component } from "react"
-import "./App.css"
-import Person from "./Person/Person"
+import "./styles/App.css"
+import PersonsList from "./components/PersonsList"
+import Cockpit from "./components/Cockpit"
 
 class App extends Component {
   state = {
@@ -44,54 +45,22 @@ class App extends Component {
   }
 
   render() {
-    const style = {
-      backgroundColor: "green",
-      color: "white",
-      font: "inherit",
-      border: "1px solid blue",
-      padding: "8px",
-      cursor: "pointer",
-    }
-
-    if (this.state.showPerson) {
-      style.backgroundColor = "red"
-    }
-
-    // let classes = ["red", "bold"].join(" ") turn this array into one string -> "red bold"
-    //ClassName Dynamically
-    const classes = []
-    if (this.state.persons.length <= 2) {
-      classes.push("red")
-    }
-
-    if (this.state.persons.length <= 1) {
-      classes.push("bold")
-    }
-
     return (
       <div className="App">
         <header className="App-header">
-          <h1>Hi, I'm a react project</h1>
-          <p className={classes.join(" ")}>I'm working now</p>{" "}
-          {/* transform into string */}
-          <button style={style} onClick={this.togglePersonHandler} className="btn-app">
-            Toggle Person
-          </button>
+          {/* I need to pass the props needed by the component */}
+          <Cockpit
+            persons={this.state.persons}
+            clicked={this.togglePersonHandler}
+          />
           {this.state.showPerson ? (
             <div>
-              {this.state.persons.map((person, index) => {
-                return (
-                  <Person
-                    click={() => this.deletePersonHandler(index)}
-                    name={person.name}
-                    age={person.age}
-                    key={person.id}
-                    changed={(event) =>
-                      this.nameChangeHandler(event, person.id)
-                    }
-                  />
-                )
-              })}
+              {/* I need to pass the props needed by the component */}
+              <PersonsList
+                persons={this.state.persons}
+                clicked={this.deletePersonHandler}
+                changed={this.nameChangeHandler}
+              />
             </div>
           ) : null}
         </header>
