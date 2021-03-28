@@ -1,7 +1,25 @@
-import React from "react"
+import React, { useEffect } from "react"
 import "../styles/App.css"
 
-const cockpit = (props) => {
+const Cockpit = (props) => {
+  useEffect(() => {
+    console.log(["Cockpit.js useEffect"])
+    const timer = setTimeout(() => {
+      alert("Saved data to cloud!")
+    }, 1000)
+    return () => {
+      clearTimeout(timer) //cleanup work in useEffect
+      console.log("[Cockpit.js] cleanup")
+    }
+  }, [])
+
+  useEffect(() => {
+    console.log(["Cockpit.js] 2nd useEffect"])
+    return () => {
+      console.log("[Cockpit.js] cleanup 2nd ")
+    }
+  })
+
   const style = {
     backgroundColor: "green",
     color: "white",
@@ -28,7 +46,7 @@ const cockpit = (props) => {
 
   return (
     <div>
-      <h1>Hi, I'm a react project</h1>
+      <h1>{props.title}</h1>
       <p className={classes.join(" ")}>I'm working now</p>{" "}
       {/* transform into string */}
       <button
@@ -43,4 +61,4 @@ const cockpit = (props) => {
   )
 }
 
-export default cockpit
+export default Cockpit

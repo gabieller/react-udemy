@@ -11,6 +11,11 @@ class App extends Component {
       { id: 3, name: "Manoel", age: 6 },
     ],
     showPerson: false,
+    showCockpit: true,
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    return state //return updated state
   }
 
   nameChangeHandler = (event, id) => {
@@ -49,10 +54,20 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           {/* I need to pass the props needed by the component */}
-          <Cockpit
-            persons={this.state.persons}
-            clicked={this.togglePersonHandler}
-          />
+          <button
+            onClick={() => {
+              this.setState({ showCockpit: false })
+            }}
+          >
+            Remove Cockpit
+          </button>
+          {this.state.showCockpit ? (
+            <Cockpit
+              title={this.props.appTitle}
+              persons={this.state.persons}
+              clicked={this.togglePersonHandler}
+            />
+          ) : null}
           {this.state.showPerson ? (
             <div>
               {/* I need to pass the props needed by the component */}
