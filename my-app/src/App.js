@@ -2,6 +2,7 @@ import { Component } from "react"
 import "./styles/App.css"
 import PersonsList from "./components/PersonsList"
 import Cockpit from "./components/Cockpit"
+import AuthContext from "./context/auth-context"
 
 class App extends Component {
   state = {
@@ -12,6 +13,8 @@ class App extends Component {
     ],
     showPerson: false,
     showCockpit: true,
+    changeCounter: 0,
+    authenticated: false,
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -34,12 +37,21 @@ class App extends Component {
     const persons = [...this.state.persons] //update the array
     persons[personIndex] = person
 
-    this.setState({ persons: persons }) //set the state for the updated array
+    this.setState((prevState, props) => {
+      return {
+        persons: persons,
+        changeCounter: prevState.state.changeCounter + 1, //use to update a state when deppendign of an old state
+      }
+    }) //set the state for the updated array
   }
 
   togglePersonHandler = () => {
     const doesShow = this.state.showPerson
     this.setState({ showPerson: !doesShow })
+  }
+
+  loginHandler = () => {
+    this.setState({ authenticated: true })
   }
 
   deletePersonHandler = (personIndex) => {
@@ -61,23 +73,31 @@ class App extends Component {
           >
             Remove Cockpit
           </button>
-          {this.state.showCockpit ? (
-            <Cockpit
-              title={this.props.appTitle}
-              persons={this.state.persons}
-              clicked={this.togglePersonHandler}
-            />
-          ) : null}
-          {this.state.showPerson ? (
-            <div>
-              {/* I need to pass the props needed by the component */}
-              <PersonsList
+          <AuthContext.Provider
+            value={{
+              authenticated: this.state.authenticated,
+              login: this.loginHandler,
+            }}
+          >
+            {this.state.showCockpit ? (
+              <Cockpit
+                title={this.props.appTitle}
                 persons={this.state.persons}
-                clicked={this.deletePersonHandler}
-                changed={this.nameChangeHandler}
+                clicked={this.togglePersonHandler}
               />
-            </div>
-          ) : null}
+            ) : null}
+            {this.state.showPerson ? (
+              <div>
+                {/* I need to pass the props needed by the component */}
+                <PersonsList
+                  persons={this.state.persons}
+                  clicked={this.deletePersonHandler}
+                  changed={this.nameChangeHandler}
+                  isAutheticated={this.state.authenticated}
+                />
+              </div>
+            ) : null}
+          </AuthContext.Provider>
         </header>
       </div>
     )

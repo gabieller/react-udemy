@@ -1,14 +1,15 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useRef } from "react"
 import "../styles/App.css"
+import AuthContext from "../context/auth-context"
 
 const Cockpit = (props) => {
+  const toggleButtonRef = useRef(null) //get access to DOM elements
+
+  //run AFTER each render cycle
   useEffect(() => {
     console.log(["Cockpit.js useEffect"])
-    const timer = setTimeout(() => {
-      alert("Saved data to cloud!")
-    }, 1000)
+    toggleButtonRef.current.click() //here to execute just after the button was created
     return () => {
-      clearTimeout(timer) //cleanup work in useEffect
       console.log("[Cockpit.js] cleanup")
     }
   }, [])
@@ -50,6 +51,7 @@ const Cockpit = (props) => {
       <p className={classes.join(" ")}>I'm working now</p>{" "}
       {/* transform into string */}
       <button
+        ref={toggleButtonRef}
         style={style}
         // Here the function used are in the other component (App.js), so we need to pass as props and created the props there
         onClick={props.clicked}
@@ -57,6 +59,13 @@ const Cockpit = (props) => {
       >
         Toggle Person
       </button>
+      <AuthContext.Consumer>
+        {(context) => (
+          <button onClick={context.login} className="btn-app">
+            Log In
+          </button>
+        )}
+      </AuthContext.Consumer>
     </div>
   )
 }
