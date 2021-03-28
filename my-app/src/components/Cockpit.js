@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useRef, useContext } from "react"
 import "../styles/App.css"
 import AuthContext from "../context/auth-context"
 
 const Cockpit = (props) => {
   const toggleButtonRef = useRef(null) //get access to DOM elements
+  const authContext = useContext(AuthContext)
 
   //run AFTER each render cycle
   useEffect(() => {
@@ -59,13 +60,9 @@ const Cockpit = (props) => {
       >
         Toggle Person
       </button>
-      <AuthContext.Consumer>
-        {(context) => (
-          <button onClick={context.login} className="btn-app">
-            Log In
-          </button>
-        )}
-      </AuthContext.Consumer>
+      <button onClick={authContext.login} className="btn-app">
+        Log In
+      </button>
     </div>
   )
 }
