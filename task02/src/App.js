@@ -1,21 +1,23 @@
-import { Component } from "react";
-import "./App.css";
-import ValidationComponent from "./Components/ValidationComponent";
-import CharComponent from "./Components/CharComponent";
+import { Component } from "react"
+import "./App.css"
+import ValidationComponent from "./Components/ValidationComponent"
+import CharComponent from "./Components/CharComponent"
 
 class App extends Component {
-  state = { input: "" };
+  state = { input: "" }
 
+  //changing the input state
   changeInputHandler = (event) => {
-    this.setState({ input: event.target.value });
-  };
+    this.setState({ input: event.target.value })
+  }
 
+  
   deleteChar = (letterIndex) => {
-    const splitArray = this.state.input.split("");
-    splitArray.splice(letterIndex, 1);
-    const updatedText = splitArray.join("");
-    this.setState({ input: updatedText });
-  };
+    const splitArray = this.state.input.split("") //array of characters
+    splitArray.splice(letterIndex, 1) //remove one on the index position
+    const updatedText = splitArray.join("")
+    this.setState({ input: updatedText })
+  }
 
   render() {
     const characters = this.state.input.split("").map((e, index) => {
@@ -25,15 +27,15 @@ class App extends Component {
           key={index}
           click={() => this.deleteChar(index)}
         />
-      ); //rendering different components deppending on the size of array
-    });
+      ) //rendering different components deppending on the size of array
+    })
 
     return (
       <div className="App">
         <input
           type="text"
-          // inputlength={this.state.input}
           onChange={this.changeInputHandler}
+          value = {this.state.input}
         />
 
         <div className="input-info">
@@ -43,8 +45,8 @@ class App extends Component {
           {characters}
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

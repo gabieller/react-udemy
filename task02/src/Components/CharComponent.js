@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 const CharComponent = (props) => {
   const style = {
@@ -7,13 +7,13 @@ const CharComponent = (props) => {
     textAlign: "center",
     margin: "16px",
     border: "1px solid black",
-  };
+  }
 
   return (
     <div onClick={props.click} style={style}>
       {props.value}
     </div>
-  );
-};
+  )
+}
 
-export default CharComponent;
+export default CharComponent
