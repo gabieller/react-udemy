@@ -33,7 +33,7 @@ const ExpenseForm = (props) => {
 
     const expenseDate = {
       title: userInput.enteredTitle,
-      amount: userInput.enteredAmount,
+      amount: +userInput.enteredAmount,
       date: new Date(userInput.enteredDate),
     }
     props.onSaveExpenseData(expenseDate) //children to parent communication
@@ -72,6 +72,9 @@ const ExpenseForm = (props) => {
         </div>
       </div>
       <div className="new-expenses__actions">
+        <button type="button" onClick={props.onCancel}>
+          Cancel
+        </button>
         <button type="submit">Add Expense</button>
       </div>
     </form>
