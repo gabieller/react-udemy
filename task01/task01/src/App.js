@@ -7,7 +7,7 @@ class App extends Component {
   state = {
     username: [
       { user: "gabieller" },
-      { user: "jhonata11" },
+      { user: "jhonat1" },
       { user: "deaeller" },
     ],
   };
