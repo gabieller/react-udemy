@@ -8,7 +8,7 @@ class App extends Component {
     username: [
       { user: "gabieller" },
       { user: "jhonata11" },
-      { user: "deaelledsdsdr" },
+      { user: "deaeller" },
     ],
   };
 
